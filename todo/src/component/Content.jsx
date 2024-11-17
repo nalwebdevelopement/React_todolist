@@ -9,17 +9,17 @@ function Content() {
     {
       id: 1,
       checked: true,
-      task: "Read React",
+      task: "Learn React",
     },
     {
       id: 2,
       checked: false,
-      task: "Do painting",
+      task: "Do project",
     },
     {
       id: 3,
       checked: true,
-      task: "Do TTEc Job",
+      task: "Apply job",
     },
   ]);
   const [newtask, setNewtask] = useState("");
@@ -57,12 +57,12 @@ function Content() {
       <input
         type="text"
         name="add item"
-        placeholder="Enter text"
+        placeholder="Add a new todo....."
         onChange={getValue}
         value={newtask}
         maxlength="20"
       ></input>
-      <button className="but-additem" onClick={handleInput}>Add item</button>
+      <button className="but-additem" onClick={handleInput}>ADD</button>
       </div>
       <ul>
         {item.map((items) => (
