@@ -23,6 +23,7 @@ function Content() {
     },
   ]);
   const [newtask, setNewtask] = useState("");
+  const [editingId, setEditingId] = useState(null);
 
   const handlecheck = (id) => {
     console.log(`id :, ${id}`);
@@ -34,6 +35,31 @@ function Content() {
   const handledel = (id) => {
     const listitems = item.filter((item) => item.id !== id);
     setItem(listitems);
+  };
+  const handleEdit =(id) =>{
+    const listitems = item.find((item) => item.id === id);
+    console.log(listitems.task);
+    if (listitems) {
+      setNewtask(listitems.task); // Populate the input with the task value
+      setEditingId(id); // Set the current task's ID for editing
+    }
+    // if (listitems) {
+    //   console.log(listitems.task); // Log the task property
+    // } else {
+    //   console.log("Item not found");
+    // }
+  };
+  const handleUpdate = () => {
+    if (editingId !== null) {
+      const updatedItems = item.map((items) =>
+        items.id === editingId ? { ...items, task: newtask } : items
+      );
+      setItem(updatedItems);
+      setEditingId(null); // Clear editing state
+      setNewtask(""); // Clear input field
+    } else {
+      handleInput(); // Add new item if not editing
+    }
   };
 
   const getValue = (event) => {
@@ -62,7 +88,8 @@ function Content() {
         value={newtask}
         maxlength="20"
       ></input>
-      <button className="but-additem" onClick={handleInput}>ADD</button>
+      <button className="but-additem" onClick={handleUpdate}>
+      {editingId !== null ? "Update" : "Add"} </button>
       </div>
       <ul>
         {item.map((items) => (
@@ -82,7 +109,7 @@ function Content() {
              
               <FaTrashAlt />
             </button>
-            <button className="but-edit"> 
+            <button className="but-edit"  onClick={()=> handleEdit(items.id)}> 
               <MdEditSquare />
             </button>
             </div>
